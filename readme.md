@@ -9,6 +9,7 @@ This library is included as a git submodule.
 * Systick to generate 1ms interrupt
   * Non-blocking millisecond timer
   * Button debounce every 10ms
+* UART2 messages 11520 8N1
 
 ## Setup libopencm3 as a submodule:
 git submodule add -b master https://github.com/libopencm3/libopencm3.git

@@ -23,7 +23,7 @@ clean:
 	$(Q)$(RM) -rf $(BINARY).elf $(BINARY).hex generated.*.ld *.d *.o
 
 flash: all
-	@printf "  FLASH   $(BINARY).elf<\n"
+	@printf "  FLASH   $(BINARY).hex\n"
 	(echo "halt; program $(realpath $(BINARY).hex) verify reset" | nc -4 localhost 4444 2>/dev/null) || \
 		$(OOCD) -f interface/$(OOCD_INTERFACE).cfg \
 		-f target/$(OOCD_TARGET).cfg \
