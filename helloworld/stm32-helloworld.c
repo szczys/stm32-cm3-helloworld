@@ -4,6 +4,7 @@
 #include <libopencm3/cm3/systick.h>
 #include <libopencm3/stm32/usart.h>
 #include "debounce-stm32-cm3.h"
+#include <stdio.h>
 
 #define MY_USART  USART1
 unsigned char message1[] = "HelloWorld";
@@ -60,9 +61,12 @@ static uint32_t getTime(void) {
   return ticks;
 }
 
-static void sendMessage(uint8_t message[], uint8_t length) {
+static void sendMessage(uint8_t *s) {
   uint8_t i;
-  for (i=0; i<length; i++) { usart_send_blocking(USART2, message[i]); }
+  while (*s != 0) { 
+    usart_send_blocking(USART2, *s);
+    s++;
+  }
   usart_send_blocking(USART2, '\r');
   usart_send_blocking(USART2, '\n');
 }
@@ -85,12 +89,12 @@ int main(void) {
 		  /* Toggle LEDs. */
 		  gpio_toggle(GPIOE, GPIO8 | GPIO9 | GPIO10 | GPIO11);
       // Send a message on USART2 (PA2 at 115200 8N1)
-      sendMessage(message1, 10);
+      sendMessage(message1);
     }
     // Toggle GPIO12 with each button down event
     if (get_key_press(KEY0)) {
       gpio_toggle(GPIOE, GPIO12);
-      sendMessage(message2, 7);
+      sendMessage(message2);
     }
     // Toggle GPIO13 with each held button event
     if (get_key_rpt(KEY0)) { gpio_toggle(GPIOE, GPIO13); }

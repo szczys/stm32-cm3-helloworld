@@ -1,6 +1,6 @@
 BINARY		= stm32-helloworld
 DEVICE          = stm32f303xc
-OPENCM3_DIR     = libopencm3
+OPENCM3_DIR     = ../libopencm3
 OBJS            += stm32-helloworld.o debounce-stm32-cm3.o
 
 OOCD		?= openocd
